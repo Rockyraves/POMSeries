@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile name="DebugAppender" fileName="application.log" filePattern="application-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{DATE} %t - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="500 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="DebugAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
