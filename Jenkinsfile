@@ -35,7 +35,7 @@ pipeline
         stage('Regression Automation Test') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    git 'https://github.com/Rockyraves/POM-Framework.git'
+                    git 'https://github.com/Rockyraves/POMSeries'
                     bat "mvn clean install"
                     
                 }
