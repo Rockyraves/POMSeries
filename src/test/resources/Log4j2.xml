@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
+        <!-- Rolling file appender -->
         <RollingFile name="DebugAppender" fileName="application.log" filePattern="application-%d{MM-dd-yyyy}-%i.log">
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
@@ -10,12 +11,27 @@
                 <SizeBasedTriggeringPolicy size="500 KB"/>
             </Policies>
             <DefaultRolloverStrategy max="5"/>
-            <Append>true</Append> <!-- Added line for appending -->
+            <Append>true</Append> <!-- Append to existing file -->
         </RollingFile>
+
+        <!-- Console appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>%d{DATE} %t - %m%n</Pattern>
+            </PatternLayout>
+        </Console>
     </Appenders>
+
     <Loggers>
+        <!-- File logger -->
         <Root level="DEBUG">
             <AppenderRef ref="DebugAppender"/>
         </Root>
+
+        <!-- Console logger -->
+        <Logger name="consoleLogger" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
     </Loggers>
 </Configuration>
