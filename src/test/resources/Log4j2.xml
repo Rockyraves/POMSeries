@@ -11,7 +11,7 @@
                 <SizeBasedTriggeringPolicy size="500 KB"/>
             </Policies>
             <DefaultRolloverStrategy max="5"/>
-            <Append>true</Append> <!-- Append to existing file -->
+            <Append>false</Append> <!-- Append to existing file -->
         </RollingFile>
 
         <!-- Console appender -->
