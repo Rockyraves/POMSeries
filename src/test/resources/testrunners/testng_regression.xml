@@ -8,13 +8,33 @@
 		<listener class-name="com.qa.opencart.listeners.AnnotationTransformer" />
 	</listeners>
 
-	<test name="Democart LoginPageTest">
+	<test name="Democart LoginPageTest_chrome_89.0">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserVersion" value="89.0" />
+		<classes>
+			<class name="com.qa.opencart.tests.LoginPageTest" />
+		</classes>
+	</test>
+	
+	<test name="Democart LoginPageTest_chrome_91.0">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserVersion" value="91.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
 
-	<test name="Democart AccountsPageTest">
+	<test name="Democart AccountsPageTest_firefox_57.0">
+		<parameter name="browser" value="firefox" />
+		<parameter name="browserVersion" value="57.0" />
+		<classes>
+			<class name="com.qa.opencart.tests.AccountPageTest" />
+		</classes>
+	</test>
+	
+	<test name="Democart AccountsPageTest_firefox_83.0">
+		<parameter name="browser" value="firefox" />
+		<parameter name="browserVersion" value="83.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />
 		</classes>

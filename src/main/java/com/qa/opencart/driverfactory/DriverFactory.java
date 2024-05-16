@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
-
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +16,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Listeners;
 
 import com.qa.opencart.utils.Browser;
@@ -28,7 +30,7 @@ public class DriverFactory {
 	public static String highlight;
 	public OptionsManager om;
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
-	public static final Logger log=LogManager.getLogger(DriverFactory.class);
+	public static final Logger log = LogManager.getLogger(DriverFactory.class);
 
 	/**
 	 * This method is used to intialize the webdriver based on the given
@@ -43,10 +45,20 @@ public class DriverFactory {
 		om = new OptionsManager(prop);
 		if (browserName.equalsIgnoreCase(Browser.CHROME_BROWSER_VALUE)) {
 			log.info("Running the test on chrome browser!!!");
-			tlDriver.set(new ChromeDriver(om.getChromeOptions()));
+
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteWebDriver(Browser.CHROME_BROWSER_VALUE);
+			} else {
+				tlDriver.set(new ChromeDriver(om.getChromeOptions()));
+			}
 		} else if (browserName.equalsIgnoreCase(Browser.FIREFOX_BROWSER_VALUE)) {
 			log.info("Running the test on chrome browser!!!");
-			tlDriver.set(new FirefoxDriver(om.getFirefoxOptions()));
+
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteWebDriver(Browser.FIREFOX_BROWSER_VALUE);
+			} else {
+				tlDriver.set(new FirefoxDriver(om.getFirefoxOptions()));
+			}
 		} else {
 			log.info("Please pass the right browser name!");
 		}
@@ -54,6 +66,33 @@ public class DriverFactory {
 		getDriver().manage().window().maximize();
 		getDriver().get(prop.getProperty("url").trim());
 		return getDriver();
+	}
+
+	/**
+	 * This method is used to run the testcases in the remote execution.
+	 * 
+	 * @param browser
+	 */
+	private void init_remoteWebDriver(String browserName) {
+
+		System.out.println("Running the testcases on remote grid servers : " + browserName);
+
+		if (browserName.equalsIgnoreCase("chrome")) {
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), om.getChromeOptions()));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (browserName.equalsIgnoreCase("firefox")) {
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), om.getFirefoxOptions()));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	public static WebDriver getDriver() {
@@ -74,7 +113,7 @@ public class DriverFactory {
 		if (envName == null) {
 			log.info("Running the tests in the default environment");
 			try {
-				fp = new FileInputStream("./src/test/resources/config/config.properties");
+				fp = new FileInputStream("./src/test/resources/config/qa.config.properties");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

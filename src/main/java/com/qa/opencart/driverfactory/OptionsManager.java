@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.Listeners;
+
 @Listeners(com.qa.opencart.listeners.TestAllureListener.class)
 public class OptionsManager {
 
@@ -22,6 +23,11 @@ public class OptionsManager {
 			co.addArguments("--headless");
 		if (Boolean.parseBoolean(prop.getProperty("incognito")))
 			co.addArguments("--incognito");
+		if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+			co.setPlatformName("linux");
+			co.setCapability("enableVNC", true);
+			co.setBrowserVersion(prop.getProperty("browserVersion"));
+		}
 		return co;
 	}
 
@@ -31,6 +37,11 @@ public class OptionsManager {
 			fo.addArguments("--headless");
 		if (Boolean.parseBoolean(prop.getProperty("--incognito")))
 			fo.addArguments("--incognito");
+		if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+			fo.setPlatformName("linux");
+			fo.setCapability("enableVNC", true);
+			fo.setBrowserVersion(prop.getProperty("browserVersion"));
+		}
 		return fo;
 	}
 }
