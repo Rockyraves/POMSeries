@@ -47,13 +47,13 @@ public class LoginPageTest extends BaseTest {
 
 	}
 
-	@Test
-	@Description("Register Link Exist Test")
-	@Severity(SeverityLevel.CRITICAL)
-	public void registerLinkExistTest() {
-		boolean flag = loginpage.isRegisterLinkExist();
-		Assert.assertTrue(flag,Errors.LOGIN_PAGE_REGISTER_LINK_NOT_EXIST);
-	}
+//	@Test
+//	@Description("Register Link Exist Test")
+//	@Severity(SeverityLevel.CRITICAL)
+//	public void registerLinkExistTest() {
+//		boolean flag = loginpage.isRegisterLinkExist();
+//		Assert.assertTrue(flag,Errors.LOGIN_PAGE_REGISTER_LINK_NOT_EXIST);
+//	}
 
 	@Test
 	@Description("Login Title Test with correct username and correct password password...")

@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.Listeners;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+
 @Listeners(com.qa.opencart.listeners.TestAllureListener.class)
 public class OptionsManager {
 
@@ -25,7 +28,9 @@ public class OptionsManager {
 			co.addArguments("--incognito");
 		if (Boolean.parseBoolean(prop.getProperty("remote"))) {
 			co.setPlatformName("linux");
-			co.setCapability("enableVNC", true);
+			co.setCapability("goog:chromeOptions", ImmutableMap.of("enableVNC", true));
+			//co.setCapability("enableVNC", true);
+			//co.setCapability("goog:chromeOptions", ImmutableMap.of("args", ImmutableList.of("--remote-debugging-port=8080")));
 			co.setBrowserVersion(prop.getProperty("browserVersion"));
 		}
 		return co;

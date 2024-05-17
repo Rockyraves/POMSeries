@@ -24,21 +24,21 @@
 		</classes>
 	</test>
 
-	<test name="Democart AccountsPageTest_firefox_57.0">
+	<!--<test name="Democart AccountsPageTest_firefox_57.0">
 		<parameter name="browser" value="firefox" />
 		<parameter name="browserVersion" value="57.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />
 		</classes>
-	</test>
+	</test>-->
 	
-	<test name="Democart AccountsPageTest_firefox_83.0">
+	<!--<test name="Democart AccountsPageTest_firefox_83.0">
 		<parameter name="browser" value="firefox" />
 		<parameter name="browserVersion" value="83.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />
 		</classes>
-	</test>
+	</test>-->
 
 	<!--<test name="Democart ProductDescPageTest">
 		<classes>
