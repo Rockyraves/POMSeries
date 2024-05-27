@@ -19,6 +19,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Listeners;
 
+import com.qa.opencart.exception.DriverException;
 import com.qa.opencart.utils.Browser;
 
 @Listeners(com.qa.opencart.listeners.TestAllureListener.class)
@@ -61,6 +62,8 @@ public class DriverFactory {
 			}
 		} else {
 			log.info("Please pass the right browser name!");
+			throw new DriverException(
+					"Invalid browser name , please pass the right browser" + Browser.CHROME_BROWSER_VALUE);
 		}
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().window().maximize();
@@ -92,7 +95,7 @@ public class DriverFactory {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	public static WebDriver getDriver() {
